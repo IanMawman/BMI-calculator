@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="stylesheet.css">
+    <title>BMI calculator</title>
+  </head>
+  <body>
+    <h1>BMI Calculator</h1>
+    <!-- This is where the user will input their values to then interperate the outcome-->
+    <label for="weight">Enter your weight in kilograms(KG):</label>
+    <input type="number" id="weight" placeholder="Enter your weight" step="0.1" required>
+    <br>
+    <label for="height">Enter your height in meters(M):</label>
+    <input type="number" id="height" placeholder="Enter your height" step="0.01" required>
+    <br>
+    <br>
+    <button onclick="calculateBMI()">Calculate BMI</button> <!--Calls on the function calculateBMI-->
+    <div id="result"></div> <!-- This is where the result is presented-->
+    <br>
+    <img src="bmi graph.jpg" alt="BMI graph">
+
+    <script>
+        function calculateBMI() {
+            // Get user input for weight and height
+            var weight = parseFloat(document.getElementById("weight").value); // gives weight a value 
+            var height = parseFloat(document.getElementById("height").value); // gives height a value
+
+            if (isNaN(weight) || isNaN(height) || weight <= 0 || height <= 0) { //checks if an input is less than 0 or not a number value 
+                alert("Please enter valid values for weight and height.");
+                return;  
+            }
+            // Calculates BMI (weight/height^2)
+            var bmi = weight / (height * height);
+            // Interpret BMI
+            var Outcome = interpretBMI(bmi);
+            // Display the results 
+            var resultElement = document.getElementById("result");
+            resultElement.innerHTML = `<p>Your BMI is: ${bmi.toFixed(2)}</p><p>Result: ${Outcome}</p>`;
+        }
+        //This is where they interpreate the BMI and its result, for it to be displayed in "result"
+        function interpretBMI(bmi) {
+            if (bmi < 18.5) {
+                return "Underweight";
+            } else if (bmi < 24.9) {
+                return "Normal weight";
+            } else if (bmi < 29.9) {
+                return "Overweight";
+            } else {
+                return "Obese";
+            }
+        }
+    </script>
+  </body>
+</html>
